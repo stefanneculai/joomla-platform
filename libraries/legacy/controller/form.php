@@ -384,7 +384,7 @@ class JControllerForm extends JControllerLegacy
 		$input = $app->input;
 		$model = $this->getModel();
 		$table = $model->getTable();
-		$cid = JRequest::getVar('cid', array(), 'post', 'array');
+		$cid = $input->post->get('cid', array(), 'array');
 		$context = "$this->option.edit.$this->context";
 
 		// Determine the name of the primary key for the data.
@@ -566,7 +566,7 @@ class JControllerForm extends JControllerLegacy
 		$lang  = JFactory::getLanguage();
 		$model = $this->getModel();
 		$table = $model->getTable();
-		$data  = JRequest::getVar('jform', array(), 'post', 'array');
+		$data  = $input->post->get('jform', array(), 'array');
 		$checkin = property_exists($table, 'checked_out');
 		$context = "$this->option.edit.$this->context";
 		$task = $this->getTask();
@@ -685,7 +685,7 @@ class JControllerForm extends JControllerLegacy
 			$this->setRedirect(
 				JRoute::_(
 					'index.php?option=' . $this->option . '&view=' . $this->view_item
-					. $this->getRedirectToItemAppend($recordId, $key), false
+					. $this->getRedirectToItemAppend($recordId, $urlVar), false
 				)
 			);
 
@@ -705,7 +705,7 @@ class JControllerForm extends JControllerLegacy
 			$this->setRedirect(
 				JRoute::_(
 					'index.php?option=' . $this->option . '&view=' . $this->view_item
-					. $this->getRedirectToItemAppend($recordId, $key), false
+					. $this->getRedirectToItemAppend($recordId, $urlVar), false
 				)
 			);
 
@@ -725,7 +725,7 @@ class JControllerForm extends JControllerLegacy
 			$this->setRedirect(
 				JRoute::_(
 					'index.php?option=' . $this->option . '&view=' . $this->view_item
-					. $this->getRedirectToItemAppend($recordId, $key), false
+					. $this->getRedirectToItemAppend($recordId, $urlVar), false
 				)
 			);
 
@@ -754,7 +754,7 @@ class JControllerForm extends JControllerLegacy
 				$this->setRedirect(
 					JRoute::_(
 						'index.php?option=' . $this->option . '&view=' . $this->view_item
-						. $this->getRedirectToItemAppend($recordId, $key), false
+						. $this->getRedirectToItemAppend($recordId, $urlVar), false
 					)
 				);
 				break;
@@ -768,7 +768,7 @@ class JControllerForm extends JControllerLegacy
 				$this->setRedirect(
 					JRoute::_(
 						'index.php?option=' . $this->option . '&view=' . $this->view_item
-						. $this->getRedirectToItemAppend(null, $key), false
+						. $this->getRedirectToItemAppend(null, $urlVar), false
 					)
 				);
 				break;
