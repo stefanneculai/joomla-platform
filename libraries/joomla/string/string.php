@@ -961,6 +961,8 @@ abstract class JString
 	 */
 	public static function parse_url($url)
 	{
+		return parse_url($url);
+
 		$result = array();
 
 		// Build arrays of values we need to decode before parsing
