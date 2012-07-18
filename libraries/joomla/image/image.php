@@ -155,7 +155,7 @@ class JImage
 	 * @since   11.3
 	 * @throws  LogicException
 	 */
-	public function crop($width, $height, $left, $top, $createNew = true)
+	public function crop($width, $height, $left = null, $top = null, $createNew = true)
 	{
 		// Make sure the resource handle is valid.
 		if (!$this->isLoaded())
@@ -168,6 +168,16 @@ class JImage
 
 		// Sanitize height.
 		$height = $this->sanitizeHeight($height, $width);
+
+		// Autocrop offsets
+		if (is_null($left))
+		{
+			$left = round(($this->getWidth() - $width) / 2);
+		}
+		if (is_null($top))
+		{
+			$top = round(($this->getHeight() - $height) / 2);
+		}
 
 		// Sanitize left.
 		$left = $this->sanitizeOffset($left);
@@ -576,7 +586,7 @@ class JImage
 	 * @param   integer  $type     The image type to save the file as.
 	 * @param   array    $options  The image type options to use in saving the file.
 	 *
-	 * @return  void
+	 * @return  boolean
 	 *
 	 * @see     http://www.php.net/manual/image.constants.php
 	 * @since   11.3
@@ -593,16 +603,16 @@ class JImage
 		switch ($type)
 		{
 			case IMAGETYPE_GIF:
-				imagegif($this->handle, $path);
+				return imagegif($this->handle, $path);
 				break;
 
 			case IMAGETYPE_PNG:
-				imagepng($this->handle, $path, (array_key_exists('quality', $options)) ? $options['quality'] : 0);
+				return imagepng($this->handle, $path, (array_key_exists('quality', $options)) ? $options['quality'] : 0);
 				break;
 
 			case IMAGETYPE_JPEG:
 			default:
-				imagejpeg($this->handle, $path, (array_key_exists('quality', $options)) ? $options['quality'] : 100);
+				return imagejpeg($this->handle, $path, (array_key_exists('quality', $options)) ? $options['quality'] : 100);
 		}
 	}
 
