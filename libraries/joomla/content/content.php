@@ -532,7 +532,7 @@ class JContent extends JDatabaseObject implements JAuthorisationAuthorisable
 		$query = $this->db->getQuery(true);
 		$query->insert($this->db->qn('#__content_likes'));
 		$query->set('content_id = ' . (int) $this->content_id);
-		$query->set('user_id = ' . (int) $this->user->get('id'));
+		$query->set('user_id = ' . (int) $this->user->get('content_id'));
 
 		// Create the like record.
 		$this->db->setQuery($query);
@@ -683,7 +683,7 @@ class JContent extends JDatabaseObject implements JAuthorisationAuthorisable
 		$query = $this->db->getQuery(true);
 		$query->delete('#__content_likes');
 		$query->where('content_id = ' . (int) $this->content_id);
-		$query->where('user_id = ' . (int) $this->user->get('id'));
+		$query->where('user_id = ' . (int) $this->user->get('content_id'));
 
 		// Delete the like record.
 		$this->db->setQuery($query);
