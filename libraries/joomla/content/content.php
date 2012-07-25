@@ -464,7 +464,7 @@ class JContent extends JDatabaseObject implements JAuthorisationAuthorisable
 	public function create()
 	{
 		// Get the user id.
-		$userId = !$this->user->get('guest') ? (int) $this->user->get('id') : null;
+		$userId = !$this->user->get('guest') ? (int) $this->user->get('content_id') : null;
 
 		// Set the base data for the content object.
 		$this->type_id = (int) $this->type->type_id;
