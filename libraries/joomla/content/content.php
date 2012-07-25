@@ -1363,4 +1363,26 @@ class JContent extends JDatabaseObject implements JAuthorisationAuthorisable
 			}
 		}
 	}
+
+	/** Method to get the likes for the current content
+	 *
+	 * @return void
+	 *
+	 * @since  12.1
+	 */
+	public function getContentLikes()
+	{
+		$query = $this->db->getQuery(true);
+		$query->select($query->qn('user_id'));
+		$query->select($query->qn('like_state'));
+		$query->from('#__content_likes');
+
+		$query->where('content_id = ' . (int) $this->content_id);
+
+		$this->db->setQuery($query);
+
+		$likes = $this->db->loadObjectList();
+
+		return $likes;
+	}
 }
