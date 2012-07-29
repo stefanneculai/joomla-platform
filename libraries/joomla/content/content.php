@@ -721,7 +721,7 @@ class JContent extends JDatabaseObject implements JAuthorisationAuthorisable
 		$this->assertIsLoaded();
 
 		// Make sure the item is checked out.
-		$this->checkout();
+		//$this->checkout();
 
 		// Check for an alias.
 		if (empty($this->alias))
@@ -734,7 +734,7 @@ class JContent extends JDatabaseObject implements JAuthorisationAuthorisable
 
 		// Update the last modified data for the content.
 		$this->modified_date = JDate::getInstance();
-		$this->modified_user_id	= !$this->user->get('guest') ? (int) $this->user->get('id') : null;
+		$this->modified_user_id	= !$this->user->get('guest') ? (int) $this->user->get('content_id') : null;
 
 		// Update the revision number.
 		if (!$this->isTemporary())
